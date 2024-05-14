@@ -13,20 +13,23 @@ func TestCatch(t *testing.T) {
 	assert.Panics(func() {
 		suspiciousFunc()
 	})
+
 	assert.NotPanics(func() {
 		defer Catch()
 		suspiciousFunc()
 	})
+
 	err := func() (err error) {
 		defer Catch(RecvError(&err))
 		suspiciousFunc()
 		return
 	}()
+
 	assert.Error(err)
 	e, ok := err.(*Error)
 	if assert.True(ok) {
 		assert.Equal("sorry pls", e.Error())
-		assert.Equal("TestCatch at catcher_test.go:24 <= tRunner at testing.go:1689", string(e.Caller))
+		assert.Equal("TestCatch.func3 at catcher_test.go:24 <= TestCatch at catcher_test.go:26", string(e.Caller))
 	}
 }
 
@@ -49,6 +52,7 @@ func ExampleCatch() {
 		suspiciousFunc()
 		return
 	}
+
 	// treat suspiciousFunc like a normal func that may return an error
 	if err := SafeCall(); err != nil {
 		log.Println("[ERR] SafeCall failed with:", err)

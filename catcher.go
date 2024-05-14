@@ -7,8 +7,9 @@ import (
 )
 
 var (
-	mu        sync.RWMutex
-	notifiers []NotifierFunc
+	callerOffset int = 0
+	mu           sync.RWMutex
+	notifiers    []NotifierFunc
 )
 
 // RegisterNotifiers adds all listed notifiers to a global list, each of them
@@ -19,12 +20,23 @@ func RegisterNotifiers(fn ...NotifierFunc) {
 	mu.Unlock()
 }
 
+// SetCallerOffset allows to customize stacktrace reporting in case the catcher is wrapped.
+// Default is 0. Setting to positive or negative will shift caller's stacktrace window up and down.
+func SetCallerOffset(n int) {
+	mu.Lock()
+	callerOffset = n
+	mu.Unlock()
+}
+
 // Catch must be used together with defer to catch panics from suspicious functions.
 // All listed receivers and all the global notifiers will be invoked with the
 // error itself, function name and a stack trace.
 func Catch(recv ...Receiver) {
 	if panicData := recover(); panicData != nil {
-		caller := getCaller(5) + " <= " + getCaller(6)
+		mu.RLock()
+		caller := getCaller(4+callerOffset) + " <= " + getCaller(5+callerOffset)
+		mu.RUnlock()
+
 		if err, ok := panicData.(error); ok {
 			if len(recv) > 0 {
 				stack := getStack()
@@ -43,6 +55,7 @@ func Catch(recv ...Receiver) {
 				r.RecvPanic(err, nil, caller, stack)
 			}
 		}
+
 		mu.RLock()
 		defer mu.RUnlock()
 		if len(notifiers) > 0 {
@@ -65,7 +78,10 @@ func Catch(recv ...Receiver) {
 // function name and a stack trace, along with the provided context and meta.
 func CatchWithContext(context, meta interface{}, recv ...Receiver) {
 	if panicData := recover(); panicData != nil {
-		caller := getCaller(5) + " <= " + getCaller(6)
+		mu.RLock()
+		caller := getCaller(4+callerOffset) + " <= " + getCaller(5+callerOffset)
+		mu.RUnlock()
+
 		if err, ok := panicData.(error); ok {
 			if len(recv) > 0 {
 				stack := getStack()
@@ -84,6 +100,7 @@ func CatchWithContext(context, meta interface{}, recv ...Receiver) {
 				r.RecvPanic(err, context, caller, stack)
 			}
 		}
+
 		mu.RLock()
 		defer mu.RUnlock()
 		if len(notifiers) > 0 {
