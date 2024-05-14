@@ -8,7 +8,7 @@ replace github.com/xlab/catcher => ../
 
 require (
 	github.com/bugsnag/bugsnag-go v1.5.3
-	github.com/xlab/catcher v1.2.0
+	github.com/xlab/catcher v1.3.0
 	github.com/xlab/suplog v1.4.4
 )
 
