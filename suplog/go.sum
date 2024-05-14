@@ -32,8 +32,6 @@ github.com/stretchr/testify v1.2.2/go.mod h1:a8OnRcib4nhh0OaRAV+Yts87kKdq0PP7pXf
 github.com/stretchr/testify v1.7.0/go.mod h1:6Fq8oRcR53rry900zMqJjRRixrwX3KX962/h/Wwjteg=
 github.com/stretchr/testify v1.9.0 h1:HtqpIVDClZ4nwg75+f6Lvsy/wHu+3BoSGCbBAcpTsTg=
 github.com/stretchr/testify v1.9.0/go.mod h1:r2ic/lqez/lEtzL7wO/rwa5dbSLXVDPFyf8C91i36aY=
-github.com/xlab/catcher v1.1.0 h1:aYyYWqkxYQJf6d9GJRUBkzXVAQLhRAhXPXL+OsXYH6Q=
-github.com/xlab/catcher v1.1.0/go.mod h1:gAD6g/o7CG7I8QiGgJ6sCePI7DSG39hjCYfG/d7Ca8M=
 github.com/xlab/closer v0.0.0-20190328110542-03326addb7c2/go.mod h1:Y8IYP9aVODN3Vnw1FCqygCG5IWyYBeBlZqQ5aX+fHFw=
 github.com/xlab/closer v1.0.0 h1:2o9/LUpwFzBa1RsHkH+4RPUKLJI6acUW3Go+xi6pOeY=
 github.com/xlab/closer v1.0.0/go.mod h1:Ff8YcUPbn5jju6nClrMCmJHQABM0S/obEK0za/1yVMk=

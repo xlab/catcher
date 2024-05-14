@@ -1,12 +1,14 @@
-module github.com/xlab/catcher/plugins/suplog
+module github.com/xlab/catcher/suplog
 
 go 1.22
 
 replace github.com/bugsnag/bugsnag-go => github.com/xlab/suplog/hooks/bugsnag/bugsnag-go v0.0.0-20220928170903-92b70aa2b602
 
+replace github.com/xlab/catcher => ../
+
 require (
 	github.com/bugsnag/bugsnag-go v1.5.3
-	github.com/xlab/catcher v1.1.0
+	github.com/xlab/catcher v1.2.0
 	github.com/xlab/suplog v1.4.4
 )
 
