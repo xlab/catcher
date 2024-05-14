@@ -7,9 +7,9 @@ import (
 	"github.com/xlab/suplog"
 )
 
-// RecvSuplog logs the error caught using the suplog logger.
+// Recv logs the error caught using the suplog logger.
 // See https://github.com/xlab/suplog
-func RecvSuplog(logger suplog.Logger) catcher.Receiver {
+func Recv(logger suplog.Logger) catcher.Receiver {
 	return suplogReceiver{
 		logger: logger,
 	}
